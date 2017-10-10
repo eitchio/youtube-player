@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Video Watcher</title>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="row">
+        <div class="span12">
+            <h1 class="page-header">Best Videos Ever</h1>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span3">
+            <ul>
+                <li><a id="new0" href="https://www.youtube.com/watch?v=TddFnTB_7IM" target="_blank">Trip through the 80s</a> </li>
+                <li><a id="new1" href="https://www.youtube.com/watch?v=epUk3T2Kfno" target="_blank">Otters Holding Hands</a></li>
+                <li><a id="new2" href="https://www.youtube.com/watch?v=il2IrgFHfsg" target="_blank">The Ooooh Cat</a></li>
+            </ul>
+        </div>
+    </div>
+    <div id="vidPlayer">
+
+          <iframe id="myIframe" width="640" height="360" src="" frameborder="0" allowfullscreen></iframe>
+
+    </div>
+</div>
+
+<script type="text/javascript" src="public/js/youtube.js"></script>
+<script
+    src="https://code.jquery.com/jquery-3.2.1.js"
+    integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+    crossorigin="anonymous"></script>
+
+<script>
+    //generate thumbnails for each youtube link
+    var hrefs = [];
+    $('ul li').each(function () {
+        hrefs.push($(this).find('a').attr('href'));
+    })
+
+
+
+    for (var i = 0; i < hrefs.length; i++) {
+        var tNail = youtube.generateThumbnailUrl(hrefs[i]);
+
+
+        var img = $('<img >');
+        $(img).attr('src', tNail);
+        $(img).appendTo("#new" + i);
+    }
+
+    //add event listener for links clicked, then append links to video player
+    //first prevent link to actually work
+    //3 functions, 1 for each link
+    $("a").click(function() {
+        return false;
+    });
+
+
+    $("#new0" ).on( "click", function() {
+        console.log( "link clicked" );
+       var link = youtube.generateEmbedUrl($("#new0" ).attr("href"));
+       console.log(link);
+        $("#myIframe").attr("src",link);
+           });
+
+    $("#new1" ).on( "click", function() {
+        console.log( "link clicked" );
+        var link = youtube.generateEmbedUrl($("#new1" ).attr("href"));
+        console.log(link);
+        $("#myIframe").attr("src",link);
+    });
+
+    $("#new2" ).on( "click", function() {
+        console.log( "link clicked" );
+        var link = youtube.generateEmbedUrl($("#new2" ).attr("href"));
+        console.log(link);
+        $("#myIframe").attr("src",link);
+    });
+
+</script>
+
+
+</body>
+</html>
